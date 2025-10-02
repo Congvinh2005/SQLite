@@ -21,6 +21,8 @@ public class LoginDatabase extends SQLiteOpenHelper {
     public static final String COL_FULLNAME = "fullname";
     public static final String COL_EMAIL = "email";
 
+
+    // Contrucstor của sqliteOpenhelper với context ngữ cảnh activity và fragmetn
     public LoginDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -145,5 +147,43 @@ public class LoginDatabase extends SQLiteOpenHelper {
             db.insert(TB_USER, null, values);
         }
         cursor.close();
+    }
+    
+    // Phương thức cập nhật người dùng
+    public boolean updateUser(int userId, String username, String password, String fullname, String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USERNAME, username);
+        values.put(COL_PASSWORD, password);
+        values.put(COL_FULLNAME, fullname);
+        values.put(COL_EMAIL, email);
+        
+        int rowsAffected = db.update(TB_USER, values, COL_ID + "=?", new String[]{String.valueOf(userId)});
+        return rowsAffected > 0;
+    }
+    
+    // Phương thức xóa người dùng
+    public boolean deleteUser(int userId) {
+        // Không cho phép xóa người dùng admin (giả sử có id = 1)
+        if (userId == 1) {
+            return false;
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(TB_USER, COL_ID + "=?", new String[]{String.valueOf(userId)});
+        return rowsAffected > 0;
+    }
+    
+    // Phương thức lấy tất cả người dùng
+    public Cursor getAllUsers() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TB_USER, null, null, null, null, null, null);
+    }
+    
+    // Phương thức tìm kiếm người dùng theo tên
+    public Cursor searchUsersByName(String name) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selection = COL_FULLNAME + " LIKE ? OR " + COL_USERNAME + " LIKE ?";
+        String[] selectionArgs = {"%" + name + "%", "%" + name + "%"};
+        return db.query(TB_USER, null, selection, selectionArgs, null, null, null);
     }
 }

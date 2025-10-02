@@ -81,10 +81,18 @@ public class LoginActivity extends AppCompatActivity {
         if (laNguoiDungHopLe) {
             Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
             
-            // Điều hướng đến màn hình chính
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.putExtra("USERNAME", username);
-            startActivity(intent);
+            // Kiểm tra nếu là người dùng admin thì chuyển đến giao diện admin, nếu không thì chuyển đến giao diện người dùng thông thường
+            if (username.equals("admin")) {
+                // Điều hướng đến màn hình admin
+                Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
+            } else {
+                // Điều hướng đến màn hình chính cho người dùng thường
+                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
+            }
             finish();
         } else {
             Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
