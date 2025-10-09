@@ -94,7 +94,7 @@ public class DeleteUserActivity extends AppCompatActivity {
 
     private void xoaNguoiDung() {
         if (userIdToDelete != null) {
-            boolean result = databaseDangNhap.deleteUser(Integer.parseInt(userIdToDelete));
+            boolean result = databaseDangNhap.deleteUser(DeleteUserActivity.this, Integer.parseInt(userIdToDelete));
             if (result) {
                 Toast.makeText(DeleteUserActivity.this, "Xóa người dùng thành công", Toast.LENGTH_SHORT).show();
 
@@ -103,11 +103,7 @@ public class DeleteUserActivity extends AppCompatActivity {
                 userIdToDelete = null;
                 buttonDelete.setEnabled(false);
             } else {
-                if (userIdToDelete.equals("1")) {
-                    Toast.makeText(DeleteUserActivity.this, "Không thể xóa tài khoản admin", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(DeleteUserActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
-                }
+                Toast.makeText(DeleteUserActivity.this, "Xóa thất bại", Toast.LENGTH_SHORT).show();
             }
         }
     }
