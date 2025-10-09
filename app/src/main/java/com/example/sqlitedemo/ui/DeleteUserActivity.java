@@ -19,7 +19,7 @@ public class DeleteUserActivity extends AppCompatActivity {
     private Button buttonSearch, buttonDelete, buttonBack;
     private LoginDatabase databaseDangNhap;
     private String userIdToDelete;
-
+// - Hàm khởi tạo: Thiết lập giao diện xóa người dùng
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,7 +97,7 @@ public class DeleteUserActivity extends AppCompatActivity {
             boolean result = databaseDangNhap.deleteUser(Integer.parseInt(userIdToDelete));
             if (result) {
                 Toast.makeText(DeleteUserActivity.this, "Xóa người dùng thành công", Toast.LENGTH_SHORT).show();
-                
+
                 // Reset giao diện
                 editTextUsername.setText("");
                 userIdToDelete = null;

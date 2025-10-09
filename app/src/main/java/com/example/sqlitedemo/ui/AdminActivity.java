@@ -17,7 +17,7 @@ public class AdminActivity extends AppCompatActivity {
     private Button nutDangXuat, nutQuanLyNguoiDung;
     private LoginDatabase databaseDangNhap;
     private String username;
-
+//- Hàm khởi tạo: Thiết lập giao diện bảng điều khiển quản trị
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

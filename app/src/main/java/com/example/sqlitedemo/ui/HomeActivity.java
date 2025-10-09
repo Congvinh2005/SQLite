@@ -18,7 +18,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button nutDangXuat;
     private LoginDatabase databaseDangNhap;
     private String username;
-
+//- Hàm khởi tạo: Thiết lập giao diện trang chủ cho người dùng thường
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
         nhanThongTinNguoiDung = findViewById(R.id.textViewUserInfo);
         nutDangXuat = findViewById(R.id.buttonLogout);
     }
-
+//- Hiển thị thông tin người dùng: Hiển thị thông tin người dùng hiện tại
     private void hienThiThongTinNguoiDung() {
         if (username != null) {
             nhanChao.setText("Chào mừng, " + username + "!");
@@ -61,7 +61,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }
     }
-
+// - Lấy thông tin người dùng: Gọi phương thức từ database để lấy thông tin người dùng
     private Cursor layThongTinNguoiDung(String username) {
         return databaseDangNhap.layThongTinNguoiDung(username);
     }

@@ -20,7 +20,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button nutDangNhap;
     private TextView nhanDangKy, nhanQuenMatKhau;
     private LoginDatabase databaseDangNhap;
-
+//- Hàm khởi tạo: Thiết lập giao diện đăng nhập và sự kiện click
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
+//- Khởi tạo giao diện: Gán các thành phần giao diện với biến
     private void khoiTaoGiaoDien() {
         nhapTaiKhoan = findViewById(R.id.editTextUsername);
         nhapMatKhau = findViewById(R.id.editTextPassword);
@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         nhanDangKy = findViewById(R.id.textViewRegister);
         nhanQuenMatKhau = findViewById(R.id.textViewForgotPassword);
     }
+ // - Đăng nhập người dùng: Thực hiện logic kiểm tra đăng nhập và điều hướng người dùng
 
     private void dangNhapNguoiDung() {
         String username = nhapTaiKhoan.getText().toString().trim();

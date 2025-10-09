@@ -21,6 +21,8 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView nhanDangNhap;
     private LoginDatabase databaseDangNhap;
 
+   // - Hàm khởi tạo: Thiết lập giao diện đăng ký và sự kiện click
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+//- Khởi tạo giao diện: Gán các thành phần giao diện với biến
     private void khoiTaoGiaoDien() {
         nhapHoTen = findViewById(R.id.editTextFullName);
         nhapEmail = findViewById(R.id.editTextEmail);
@@ -55,6 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
         nutDangKy = findViewById(R.id.buttonRegister);
         nhanDangNhap = findViewById(R.id.textViewLogin);
     }
+//- Đăng ký người dùng: Thực hiện logic đăng ký người dùng mới
 
     private void dangKyNguoiDung() {
         String hoTen = nhapHoTen.getText().toString().trim();

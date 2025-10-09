@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class LoginDatabase extends SQLiteOpenHelper {
 
@@ -29,7 +30,7 @@ public class LoginDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // tạo bảng
+        // tạo bảng Hàm tạo bảng: Tạo bảng người dùng và thêm dữ liệu mẫu
         String createUserTable = "CREATE TABLE " + TB_USER + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_USERNAME + " TEXT UNIQUE, " +
@@ -64,7 +65,8 @@ public class LoginDatabase extends SQLiteOpenHelper {
         values.put(COL_EMAIL, "test@example.com");
         db.insert(TB_USER, null, values);
     }
-    // Theemfm nguuwoif
+    //  Chèn người dùng: Thêm một người dùng mới vào cơ sở dữ liệu nếu tên người dùng
+    //     chưa tồn tại
     public boolean insertUser(String username, String password, String fullname, String email) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -86,7 +88,7 @@ public class LoginDatabase extends SQLiteOpenHelper {
         long result = db.insert(TB_USER, null, values);
         return result != -1;
     }
-    //check
+    //check - Kiểm tra người dùng: Kiểm tra xem tên người dùng và mật khẩu có hợp lệ hay không
     public boolean checkUser(String username, String password) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TB_USER +
@@ -97,14 +99,14 @@ public class LoginDatabase extends SQLiteOpenHelper {
         cursor.close();
         return exists;
     }
-    // Cập nhật
+    //  Hàm nâng cấp: Xóa bảng cũ và tạo lại khi phiên bản cơ sở dữ liệu thay đổi
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TB_USER);
         onCreate(db);
     }
 
-    // Phương thức để lấy thông tin người dùng
+    //  - Lấy thông tin người dùng: Lấy thông tin cá nhân của người dùng dựa trên tên đăng nhập
     public Cursor layThongTinNguoiDung(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TB_USER +
@@ -112,7 +114,7 @@ public class LoginDatabase extends SQLiteOpenHelper {
         return db.rawQuery(query, new String[]{username});
     }
 
-    // Phương thức thêm dữ liệu mẫu nếu chưa tồn tại
+    //  - Thêm dữ liệu mẫu nếu chưa tồn tại: Thêm dữ liệu mẫu vào cơ sở dữ liệu nếu chưa có người dùng nào tồn tại
     public void themDuLieuMauNeuChuaTonTai() {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -162,24 +164,25 @@ public class LoginDatabase extends SQLiteOpenHelper {
         return rowsAffected > 0;
     }
     
-    // Phương thức xóa người dùng
-    public boolean deleteUser(int userId) {
-        // Không cho phép xóa người dùng admin (giả sử có id = 1)
+    //- Xóa người dùng: Xóa người dùng khỏi cơ sở dữ liệu, trừ tài khoản admin
+    public boolean deleteUser(Context context, int userId) {
         if (userId == 1) {
+            Toast.makeText(context, "Không thể xóa tài khoản Admin!", Toast.LENGTH_SHORT).show();
             return false;
         }
         SQLiteDatabase db = this.getWritableDatabase();
         int rowsAffected = db.delete(TB_USER, COL_ID + "=?", new String[]{String.valueOf(userId)});
         return rowsAffected > 0;
     }
+
     
-    // Phương thức lấy tất cả người dùng
+    // - Lấy tất cả người dùng: Trả về con trỏ đến tất cả người dùng trong cơ sở dữ liệu
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.query(TB_USER, null, null, null, null, null, null);
     }
     
-    // Phương thức tìm kiếm người dùng theo tên
+    //  - Tìm kiếm người dùng theo tên: Tìm người dùng theo tên đầy đủ hoặc tên đăng nhập
     public Cursor searchUsersByName(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selection = COL_FULLNAME + " LIKE ? OR " + COL_USERNAME + " LIKE ?";

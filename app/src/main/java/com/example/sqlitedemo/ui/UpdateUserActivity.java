@@ -63,7 +63,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         // Disable các trường nhập liệu cho đến khi tìm thấy người dùng
         enableInputFields(false);
     }
-
+//- Bật/tắt trường nhập liệu: Cho phép hoặc vô hiệu hóa các trường nhập liệu
     private void enableInputFields(boolean enable) {
         editTextUsername.setEnabled(enable);
         editTextPassword.setEnabled(enable);
@@ -108,7 +108,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         
         cursor.close();
     }
-
+//- Cập nhật người dùng: Cập nhật thông tin người dùng trong cơ sở dữ liệu
     private void capNhatNguoiDung() {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();

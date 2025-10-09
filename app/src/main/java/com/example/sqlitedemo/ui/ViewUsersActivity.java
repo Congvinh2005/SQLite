@@ -27,7 +27,7 @@ public class ViewUsersActivity extends AppCompatActivity {
     private LoginDatabase databaseDangNhap;
     private ArrayList<String> userList;
     private ArrayAdapter<String> adapter;
-
+// - Hàm khởi tạo: Thiết lập giao diện xem danh sách người dùng
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +78,7 @@ public class ViewUsersActivity extends AppCompatActivity {
             }
         });
     }
-    
+    //- Tải danh sách người dùng: Lấy và hiển thị tất cả người dùng từ cơ sở dữ liệu
     private void loadUsers() {
         userList.clear();
         
@@ -101,7 +101,8 @@ public class ViewUsersActivity extends AppCompatActivity {
         cursor.close();
         adapter.notifyDataSetChanged();
     }
-    
+    //- Tìm kiếm người dùng: Tìm kiếm người dùng theo tên hoặc tên đăng nhập
+
     private void searchUsers(String query) {
         userList.clear();
         
